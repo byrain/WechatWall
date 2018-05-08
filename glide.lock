@@ -1,0 +1,10 @@
+hash: 96210171f00b6bda7e88566363ac744876dc82069c0e5d8b17a2d963d7df336b
+updated: 2018-04-11T11:59:40.697217+08:00
+imports:
+- name: github.com/BurntSushi/toml
+  version: b26d9c308763d68093482582cea63d69be07a0f0
+- name: github.com/go-chi/chi
+  version: e83ac2304db3c50cf03d96a2fcd39009d458bc35
+  subpackages:
+  - middleware
+testImports: []
