@@ -14,8 +14,8 @@ import (
 	"gopkg.in/chanxuehong/wechat.v2/mp/core"
 	"gopkg.in/chanxuehong/wechat.v2/mp/message/callback/request"
 
-	"myGo/httpServer/common"
-	"myGo/httpServer/util"
+	"github.com/WechatWall/common"
+	"github.com/WechatWall/util"
 )
 
 func Wx() chi.Router {
