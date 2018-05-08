@@ -1,16 +1,18 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 
-	"myGo/httpServer/handler"
+	"github.com/byrain/WechatWall/common"
+	"github.com/byrain/WechatWall/handler"
 )
 
 func main() {
-	// configPath := flag.String("config", "", "config file's path")
-	// flag.Parse()
+	configPath := flag.String("config", "", "config file's path")
+	flag.Parse()
 
-	// common.InitConfig(*configPath)
+	common.InitConfig(*configPath)
 
 	if err := http.ListenAndServe(common.Config.Listen, handler.Wx()); err != nil {
 		panic(err.Error())
