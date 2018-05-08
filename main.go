@@ -12,11 +12,10 @@ func main() {
 
 	// common.InitConfig(*configPath)
 
-	// if err := http.ListenAndServe(common.Config.Listen, handler.Wx()); err != nil {
-	// 	panic(err.Error())
-	// }
-	//
-	if err := http.ListenAndServe(":80", handler.Wx()); err != nil {
+	if err := http.ListenAndServe(common.Config.Listen, handler.Wx()); err != nil {
 		panic(err.Error())
 	}
+	//if err := http.ListenAndServe(":80", handler.Wx()); err != nil {
+	//	panic(err.Error())
+	//}
 }
