@@ -14,8 +14,8 @@ import (
 	"gopkg.in/chanxuehong/wechat.v2/mp/core"
 	"gopkg.in/chanxuehong/wechat.v2/mp/message/callback/request"
 
-	"github.com/WechatWall/common"
-	"github.com/WechatWall/util"
+	"github.com/byrain/WechatWall/common"
+	"github.com/byrain/WechatWall/util"
 )
 
 func Wx() chi.Router {

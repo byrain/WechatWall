@@ -4,8 +4,8 @@ import (
 	"flag"
 	"net/http"
 
-	"github.com/WechatWall/common"
-	"github.com/WechatWall/handler"
+	"github.com/byrain/WechatWall/common"
+	"github.com/byrain/WechatWall/handler"
 )
 
 func main() {
