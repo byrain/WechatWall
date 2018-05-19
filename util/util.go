@@ -4,6 +4,8 @@ import (
 	"crypto/sha1"
 	"crypto/subtle"
 	"encoding/hex"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"sort"
 
@@ -69,4 +71,16 @@ func ProcessTextMsg(mixedMsg *core.MixedMsg) {
 
 	// userId := textObject.MsgHeader.
 	return
+}
+
+func TraverseFolder(folderPath string) []string {
+	files, err := ioutil.ReadDir(folderPath)
+	if err != nil {
+		log.Println(err)
+	}
+	fileName := []string{}
+	for _, file := range files {
+		fileName = append(fileName, file.Name())
+	}
+	return fileName
 }

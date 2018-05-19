@@ -1,4 +1,6 @@
-listen = ":8080"
+listen       = ":80"
+TuringAPIKey = ""
+TuringURL    = "http://openapi.tuling123.com/openapi/api/v2"
 
 [log]
 level = "debug"

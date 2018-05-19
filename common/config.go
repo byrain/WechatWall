@@ -3,7 +3,9 @@ package common
 import "github.com/BurntSushi/toml"
 
 type Configs struct {
-	Listen string
+	Listen       string
+	TuringAPIKey string
+	TuringURL    string
 }
 
 var Config *Configs

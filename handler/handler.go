@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"strings"
 
 	"net/http"
 
@@ -13,9 +14,11 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"gopkg.in/chanxuehong/wechat.v2/mp/core"
 	"gopkg.in/chanxuehong/wechat.v2/mp/message/callback/request"
+	"gopkg.in/chanxuehong/wechat.v2/mp/message/callback/response"
 
 	"github.com/byrain/WechatWall/common"
 	"github.com/byrain/WechatWall/util"
+	"github.com/byrain/turing_bot/turing"
 )
 
 func Wx() chi.Router {
@@ -98,13 +101,39 @@ func wx_message(w http.ResponseWriter, req *http.Request) {
 
 	switch mixedMsg.MsgHeader.MsgType {
 	case "text":
-		var haveObject = request.GetText(mixedMsg)
-		// fmt.Println(haveObject)
-		fmt.Printf("%s send %s. Avatar is nil", haveObject.MsgHeader.FromUserName, haveObject.Content)
+		var msg = request.GetText(mixedMsg)
+		content := msg.Content
+		fmt.Printf("%s send %s. Avatar is nil\n", msg.MsgHeader.FromUserName, content)
+
+		replyConent := getReplyContent(content, msg.MsgHeader.FromUserName)
+
+		resp := response.NewText(msg.MsgHeader.FromUserName, msg.MsgHeader.ToUserName, msg.MsgHeader.CreateTime, replyConent)
+		ctx := &core.Context{
+			ResponseWriter: w,
+			Request:        req,
+		}
+		ctx.RawResponse(resp) // 明文回复
+
 	case "image":
 		var haveObject = request.GetImage(mixedMsg)
 		fmt.Println(haveObject)
 	default:
 		return
+	}
+}
+
+func getReplyContent(content, userID string) string {
+	switch strings.ToLower(content) {
+	case "bt":
+		fileNames := util.TraverseFolder(common.DownloadPath)
+		return strings.Join(fileNames, ", ")
+	case "签到":
+		return "签到成功"
+	default:
+		userID = strings.Replace(userID, "_", "", -1) // 图灵机器人不支持userid含下划线
+		turing.SetTuringBot(common.Config.TuringAPIKey, userID, common.Config.TuringURL)
+		message := turing.NewTuringMessage(content)
+		messageResp := turing.GetTuringBotResp(message)
+		return messageResp.Result[0].Values["text"]
 	}
 }

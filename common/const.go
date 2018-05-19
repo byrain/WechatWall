@@ -7,4 +7,5 @@ const (
 	Version2_0     = "v2.0"
 	Version1_0     = "v1.0"
 	Token          = "byrain"
+	DownloadPath   = "/root/Downloads/ttg/"
 )
